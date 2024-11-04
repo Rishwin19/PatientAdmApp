@@ -14,6 +14,7 @@ namespace PatientAdmissionApp
 
         }
 
+
         private void btnRegistration_Click(object sender, RoutedEventArgs e)
         {
 
@@ -55,7 +56,8 @@ namespace PatientAdmissionApp
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            var patientViewModel = new PatientViewModel();
+            patientViewModel.OnExited();
         }
     }
 }

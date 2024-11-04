@@ -8,6 +8,8 @@ namespace PatientAdmissionApp
     public class PatientViewModel : BaseViewModel, Ipatient
     {
         public event EventHandler AppointmentUpdated;
+        public event EventHandler Exited;
+        
         public ObservableCollection<PatientModel> Patients { get; set; } = new ObservableCollection<PatientModel>();
         public ObservableCollection<PatientModel> ConfirmedPatients { get; set; } = new ObservableCollection<PatientModel>();
 
@@ -83,5 +85,11 @@ namespace PatientAdmissionApp
         {
             AppointmentUpdated?.Invoke(this, EventArgs.Empty);
         }
+        public virtual void OnExited()
+        {
+            Application.Current.Shutdown();
+            Exited?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }

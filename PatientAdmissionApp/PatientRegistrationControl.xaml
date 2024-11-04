@@ -14,7 +14,7 @@
             <TextBlock Text="Name:"  />
             <TextBox x:Name="NameTextBox" Text="{Binding NewPatient.Name}" />
             <TextBlock Text="Date of Birth:" />
-            <DatePicker x:Name="DOBPicker" SelectedDate="{Binding NewPatient.Dateofbirth}" SelectedDateFormat="Short" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
+            <DatePicker x:Name="DOBPicker" SelectedDate="{Binding NewPatient.Dateofbirth}"  SelectedDateFormat="Short" />
             
             <TextBlock Text="Address:" />
                 <TextBox x:Name="AddressTextBox" Text="{Binding NewPatient.Address}"/>

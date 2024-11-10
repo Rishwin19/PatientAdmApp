@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PatientAdmissionApp
 {
-    public interface Ipatient
+    public interface IPatient
     {
         ObservableCollection<PatientModel> Patients { get; }
        void RegisterPatient(object parameter);

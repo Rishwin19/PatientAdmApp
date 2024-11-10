@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace PatientAdmissionApp
 {
-    public class PatientViewModel : BaseViewModel, Ipatient
+    public class PatientViewModel : BaseViewModel, IPatient
     {
         public event EventHandler AppointmentUpdated;
         public event EventHandler Exited;
@@ -44,7 +44,9 @@ namespace PatientAdmissionApp
 
             RegisterPatientCommand = new RelayCommand(RegisterPatient);
             SendUpdateCommand = new RelayCommand(SendUpdate);
+
             PatientRegistered += OnPatientRegistered;
+            AppointmentUpdated += OnAppointmentUpdated;
         }
 
         public void RegisterPatient(object parameter)
@@ -82,12 +84,8 @@ namespace PatientAdmissionApp
             {
                 SelectedPatient.ConfirmationStatus = NewPatient.ConfirmationStatus;
                 SelectedPatient.AppointmentDate = NewPatient.AppointmentDate;
-                OnAppointmentUpdated();
-
-                if (!ConfirmedPatients.Contains(SelectedPatient))
-                {
-                    ConfirmedPatients.Add(SelectedPatient);
-                }
+                AppointmentUpdated?.Invoke(this, EventArgs.Empty);
+                //OnAppointmentUpdated();
             }
             else
             {
@@ -95,10 +93,19 @@ namespace PatientAdmissionApp
             }
         }
 
-        protected virtual void OnAppointmentUpdated()
+        private void OnAppointmentUpdated(object sender, EventArgs e)
         {
-            AppointmentUpdated?.Invoke(this, EventArgs.Empty);
+            if (SelectedPatient != null && !ConfirmedPatients.Contains(SelectedPatient))
+            {
+                ConfirmedPatients.Add(SelectedPatient);
+                MessageBox.Show($"Appointment Confirmed for {SelectedPatient.Name}");
+            }
         }
+
+        //protected virtual void OnAppointmentUpdated()
+        //{
+           
+        //}
 
         public virtual void OnExited()
         {

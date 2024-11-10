@@ -9,10 +9,10 @@ namespace PatientAdmissionApp
     {
         public event EventHandler AppointmentUpdated;
         public event EventHandler Exited;
-        
+        public event EventHandler PatientRegistered;
+
         public ObservableCollection<PatientModel> Patients { get; set; } = new ObservableCollection<PatientModel>();
         public ObservableCollection<PatientModel> ConfirmedPatients { get; set; } = new ObservableCollection<PatientModel>();
-
 
         private PatientModel _newPatient;
         public PatientModel NewPatient
@@ -27,6 +27,7 @@ namespace PatientAdmissionApp
             get { return _selectedPatient; }
             set { _selectedPatient = value; OnPropertyChanged(); }
         }
+
         private bool _selectedSlot;
         public bool SelectedSlot
         {
@@ -34,42 +35,56 @@ namespace PatientAdmissionApp
             set { _selectedSlot = value; OnPropertyChanged(nameof(SelectedSlot)); }
         }
 
-        public ICommand RegisterPatientCommand { get; set;}
+        public ICommand RegisterPatientCommand { get; set; }
         public ICommand SendUpdateCommand { get; set; }
-        
 
         public PatientViewModel()
         {
             NewPatient = new PatientModel();
+
             RegisterPatientCommand = new RelayCommand(RegisterPatient);
             SendUpdateCommand = new RelayCommand(SendUpdate);
+            PatientRegistered += OnPatientRegistered;
         }
 
         public void RegisterPatient(object parameter)
         {
-            Patients.Add(new PatientModel
-            {
-                Name = NewPatient.Name,
-                Dateofbirth = NewPatient.Dateofbirth,
-                Age = DateTime.Now.Year - NewPatient.Dateofbirth.Year,
-                Address = NewPatient.Address,
-                Slot = NewPatient.Slot,
-                BookingDate = NewPatient.BookingDate
-            });
-            NewPatient = new PatientModel();
-            MessageBox.Show("Registration Success!!!!");
-
+            OnPatientRegistered(this, EventArgs.Empty);
         }
 
+        private void OnPatientRegistered(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(NewPatient.Name) && NewPatient.Dateofbirth != default)
+            {
+                Patients.Add(new PatientModel
+                {
+                    Name = NewPatient.Name,
+                    Dateofbirth = NewPatient.Dateofbirth,
+                    Age = DateTime.Now.Year - NewPatient.Dateofbirth.Year,
+                    Address = NewPatient.Address,
+                    Slot = NewPatient.Slot,
+                    BookingDate = NewPatient.BookingDate
+                });
+
+                MessageBox.Show("Registration Success!!!!");
+
+                NewPatient = new PatientModel();
+            }
+            else
+            {
+                MessageBox.Show("Please provide valid patient details.");
+            }
+        }
 
         public void SendUpdate(object parameter)
         {
-            if(SelectedPatient != null)
+            if (SelectedPatient != null)
             {
                 SelectedPatient.ConfirmationStatus = NewPatient.ConfirmationStatus;
                 SelectedPatient.AppointmentDate = NewPatient.AppointmentDate;
                 OnAppointmentUpdated();
-                if(!ConfirmedPatients.Contains(SelectedPatient))
+
+                if (!ConfirmedPatients.Contains(SelectedPatient))
                 {
                     ConfirmedPatients.Add(SelectedPatient);
                 }
@@ -78,18 +93,17 @@ namespace PatientAdmissionApp
             {
                 MessageBox.Show("Please select a Patient");
             }
-            
         }
 
         protected virtual void OnAppointmentUpdated()
         {
             AppointmentUpdated?.Invoke(this, EventArgs.Empty);
         }
+
         public virtual void OnExited()
         {
             Application.Current.Shutdown();
             Exited?.Invoke(this, EventArgs.Empty);
         }
-
     }
 }

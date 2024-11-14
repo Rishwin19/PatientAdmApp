@@ -47,6 +47,7 @@ namespace PatientAdmissionApp
             SendUpdateCommand = new RelayCommand(SendUpdate);
             PatientRegistered += OnPatientRegistered;
             AppointmentUpdated += OnAppointmentUpdated;
+
         }
 
         public void RegisterPatient(object parameter)

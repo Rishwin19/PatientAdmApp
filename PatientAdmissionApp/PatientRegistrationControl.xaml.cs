@@ -23,9 +23,14 @@ namespace PatientAdmissionApp
         public PatientRegistrationControl()
         {
             InitializeComponent();
-            //this.DataContext = new PatientViewModel();
         }
-        
+        public void DisplayPatientName(object sender, PatientModel e)
+        {
+            if (e != null)
+            {
+                PatientNameLabel.Content = $"Notification from Registration page - {e.Name}";
+            }
+        }
 
 
     }

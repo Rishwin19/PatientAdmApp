@@ -23,8 +23,15 @@ namespace PatientAdmissionApp
         public PatientDashboardControl()
         {
             InitializeComponent();
-            //this.DataContext = PatientViewModel.Instance;
 
+        }
+        public void DisplayPatientName(object sender, PatientModel e)
+        {
+            if (e != null)
+            {
+                
+                lblPatientNameLabel3.Content = $" Notified From Registrationpage - {e.Name}";
+            }
         }
     }
 }

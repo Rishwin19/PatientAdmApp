@@ -2,62 +2,56 @@
 
 namespace PatientAdmissionApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private PatientViewModel _viewModel;
+        private PatientRegistrationControl registrationControl;
+        private AppointmentControl appointmentControl;
+        private PatientDashboardControl dashboardControl;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new PatientViewModel();
-
+            _viewModel = new PatientViewModel();
+            DataContext = _viewModel;
         }
-
 
         private void btnRegistration_Click(object sender, RoutedEventArgs e)
         {
-
-
-            var confirmationControl = new PatientRegistrationControl();
-
-
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            if (mainWindow != null)
+            if (!(MainContent.Content is PatientRegistrationControl))
             {
-                mainWindow.MainContent.Content = confirmationControl;
+                var registrationControl = new PatientRegistrationControl();
+                appointmentControl = new AppointmentControl();
+                dashboardControl = new PatientDashboardControl();
+                MainContent.Content = registrationControl;
+                _viewModel.PatientUpdated += registrationControl.DisplayPatientName;
+                _viewModel.PatientUpdated += appointmentControl.DisplayPatientName;
+                _viewModel.PatientUpdated += dashboardControl.DisplayPatientName;
             }
-
         }
 
         private void btnAppointment_Click(object sender, RoutedEventArgs e)
         {
-            var appointmentControl = new AppointmentControl();
-            var appointmentWindow = Window.GetWindow(this) as MainWindow;
-
-            if (appointmentWindow != null)
+            if (!(MainContent.Content is AppointmentControl))
             {
-                appointmentWindow.MainContent.Content = appointmentControl;
+                MainContent.Content = appointmentControl;
 
             }
         }
 
         private void btnDashboard_Click(object sender, RoutedEventArgs e)
         {
-            var patientDashboardControl = new PatientDashboardControl();
-            var patientDashboard = Window.GetWindow(this) as MainWindow;
-
-            if (patientDashboard != null)
+            if (!(MainContent.Content is PatientDashboardControl))
             {
-                patientDashboard.MainContent.Content = patientDashboardControl;
-
+                MainContent.Content = dashboardControl;
             }
         }
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        public void UnsubscribeFromPatientUpdatedEvent()
         {
-            var patientViewModel = new PatientViewModel();
-            patientViewModel.OnExited();
+            _viewModel.PatientUpdated -= registrationControl.DisplayPatientName;
+            _viewModel.PatientUpdated -= appointmentControl.DisplayPatientName;
+            _viewModel.PatientUpdated -= dashboardControl.DisplayPatientName;
+
         }
     }
 }

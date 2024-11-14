@@ -7,9 +7,11 @@ namespace PatientAdmissionApp
 {
     public class PatientViewModel : BaseViewModel, IPatient
     {
+        private MainWindow mainWindow;
+
         public event EventHandler AppointmentUpdated;
-        public event EventHandler Exited;
         public event EventHandler PatientRegistered;
+        public event EventHandler<PatientModel> PatientUpdated;
 
         public ObservableCollection<PatientModel> Patients { get; set; } = new ObservableCollection<PatientModel>();
         public ObservableCollection<PatientModel> ConfirmedPatients { get; set; } = new ObservableCollection<PatientModel>();
@@ -34,24 +36,22 @@ namespace PatientAdmissionApp
             get { return _selectedSlot; }
             set { _selectedSlot = value; OnPropertyChanged(nameof(SelectedSlot)); }
         }
-
+       
         public ICommand RegisterPatientCommand { get; set; }
         public ICommand SendUpdateCommand { get; set; }
 
         public PatientViewModel()
         {
             NewPatient = new PatientModel();
-
             RegisterPatientCommand = new RelayCommand(RegisterPatient);
             SendUpdateCommand = new RelayCommand(SendUpdate);
-
             PatientRegistered += OnPatientRegistered;
             AppointmentUpdated += OnAppointmentUpdated;
         }
 
         public void RegisterPatient(object parameter)
         {
-            OnPatientRegistered(this, EventArgs.Empty);
+            PatientRegistered?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnPatientRegistered(object sender, EventArgs e)
@@ -67,9 +67,7 @@ namespace PatientAdmissionApp
                     Slot = NewPatient.Slot,
                     BookingDate = NewPatient.BookingDate
                 });
-
-                MessageBox.Show("Registration Success!!!!");
-
+                PatientUpdated?.Invoke(this, NewPatient);
                 NewPatient = new PatientModel();
             }
             else
@@ -78,6 +76,7 @@ namespace PatientAdmissionApp
             }
         }
 
+
         public void SendUpdate(object parameter)
         {
             if (SelectedPatient != null)
@@ -85,7 +84,6 @@ namespace PatientAdmissionApp
                 SelectedPatient.ConfirmationStatus = NewPatient.ConfirmationStatus;
                 SelectedPatient.AppointmentDate = NewPatient.AppointmentDate;
                 AppointmentUpdated?.Invoke(this, EventArgs.Empty);
-                //OnAppointmentUpdated();
             }
             else
             {
@@ -100,17 +98,6 @@ namespace PatientAdmissionApp
                 ConfirmedPatients.Add(SelectedPatient);
                 MessageBox.Show($"Appointment Confirmed for {SelectedPatient.Name}");
             }
-        }
-
-        //protected virtual void OnAppointmentUpdated()
-        //{
-           
-        //}
-
-        public virtual void OnExited()
-        {
-            Application.Current.Shutdown();
-            Exited?.Invoke(this, EventArgs.Empty);
         }
     }
 }

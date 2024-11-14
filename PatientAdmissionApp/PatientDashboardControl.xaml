@@ -22,15 +22,8 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Medical Records DataGrid -->
-            <DataGrid ItemsSource="{Binding ConfirmedPatients}" AutoGenerateColumns="False" Height="200" Margin="0,20,0,0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date" Binding="{Binding AppointmentDate}" />
-                    <DataGridTextColumn Header="Diagnosis" Binding="{Binding Diagnosis}" />
-                    <DataGridTextColumn Header="Prescription" Binding="{Binding Prescription}" />
-                    <DataGridTextColumn Header="Notes" Binding="{Binding Notes}" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <Label x:Name="lblPatientNameLabel3" Content="Patient Name" FontSize="16" Margin="10"/>
+
 
             <!-- Action Buttons -->
             

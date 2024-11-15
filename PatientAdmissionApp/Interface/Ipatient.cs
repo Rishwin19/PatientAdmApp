@@ -11,6 +11,5 @@ namespace PatientAdmissionApp
     {
         ObservableCollection<PatientModel> Patients { get; }
        void RegisterPatient(object parameter);
-       void SendUpdate(object parameter);
     }
 }

@@ -5,7 +5,7 @@ namespace PatientAdmissionApp.Views
 {
     public partial class MainWindow : Window
     {
-        private PatientViewModel _viewModel;
+        private PatientRegistrationVeiwModel _viewModel;
         private PatientRegistrationControl registrationControl;
         private AppointmentControl appointmentControl;
         private PatientDashboardControl dashboardControl;
@@ -13,7 +13,7 @@ namespace PatientAdmissionApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new PatientViewModel();
+            _viewModel = new PatientRegistrationVeiwModel();
             DataContext = _viewModel;
         }
 
@@ -47,12 +47,11 @@ namespace PatientAdmissionApp.Views
                 MainContent.Content = dashboardControl;
             }
         }
-        public void UnsubscribeFromPatientUpdatedEvent()
+        ~MainWindow()
         {
             _viewModel.PatientUpdated -= registrationControl.DisplayPatientName;
             _viewModel.PatientUpdated -= appointmentControl.DisplayPatientName;
             _viewModel.PatientUpdated -= dashboardControl.DisplayPatientName;
-
         }
     }
 }

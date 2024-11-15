@@ -22,7 +22,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Label x:Name="lblPatientNameLabel3" Content="Patient Name" FontSize="16" Margin="10"/>
+            <Label x:Name="lblPatientNameLabel3" FontSize="16" Margin="10"/>
 
 
             <!-- Action Buttons -->

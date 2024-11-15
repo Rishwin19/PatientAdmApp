@@ -8,8 +8,16 @@ using System.ComponentModel;
 
 namespace PatientAdmissionApp
 {
+
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private PatientModel _newPatient;
+        public PatientModel NewPatient
+        {
+            get { return _newPatient; }
+            set { _newPatient = value; OnPropertyChanged(); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName = null)

@@ -68,9 +68,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interface\IAppointment.cs" />
     <Compile Include="UserControls\AppointmentControl.xaml.cs">
       <DependentUpon>AppointmentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AppointmentViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Interface\Ipatient.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -94,7 +96,7 @@
     <Compile Include="UserControls\PatientRegistrationControl.xaml.cs">
       <DependentUpon>PatientRegistrationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\PatientViewModel.cs" />
+    <Compile Include="ViewModels\PatientRegistrationVeiwModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

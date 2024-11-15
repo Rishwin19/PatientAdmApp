@@ -29,7 +29,7 @@
             <TextBlock Text="Booking Date:" />
             <DatePicker x:Name="BookingDatePicker" SelectedDateFormat="Short" SelectedDate="{Binding NewPatient.BookingDate}" DisplayDateStart="{x:Static sys:DateTime.Now}"/>
             <Button Content="Register" Width="100" Height="30" Margin="0,10,0,0" Command="{Binding RegisterPatientCommand}" />
-            <Label x:Name="PatientNameLabel" Content="Patient Name" FontSize="16" Margin="10"/>
+            <Label x:Name="PatientNameLabel" FontSize="16" Margin="10"/>
         </StackPanel>
     </Grid>
 </UserControl>

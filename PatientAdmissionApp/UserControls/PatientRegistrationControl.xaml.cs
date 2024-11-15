@@ -13,25 +13,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PatientAdmissionApp
+namespace PatientAdmissionApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for PatientDashboardControl.xaml
+    /// Interaction logic for PatientRegistrationControl.xaml
     /// </summary>
-    public partial class PatientDashboardControl : UserControl
+    public partial class PatientRegistrationControl : UserControl
     {
-        public PatientDashboardControl()
+        public PatientRegistrationControl()
         {
             InitializeComponent();
-
         }
         public void DisplayPatientName(object sender, PatientModel e)
         {
             if (e != null)
             {
-                
-                lblPatientNameLabel3.Content = $" Notified From Registrationpage - {e.Name}";
+                PatientNameLabel.Content = $"Notification from Registration page - {e.Name}";
             }
         }
+
+
     }
 }

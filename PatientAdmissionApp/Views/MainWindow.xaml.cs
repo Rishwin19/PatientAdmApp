@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using PatientAdmissionApp.UserControls;
 
-namespace PatientAdmissionApp
+namespace PatientAdmissionApp.Views
 {
     public partial class MainWindow : Window
     {
@@ -20,7 +21,7 @@ namespace PatientAdmissionApp
         {
             if (!(MainContent.Content is PatientRegistrationControl))
             {
-                var registrationControl = new PatientRegistrationControl();
+                registrationControl = new PatientRegistrationControl();
                 appointmentControl = new AppointmentControl();
                 dashboardControl = new PatientDashboardControl();
                 MainContent.Content = registrationControl;

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PatientAdmissionApp
+namespace PatientAdmissionApp.UserControls
 {
     /// <summary>
     /// Interaction logic for AppointmentControl.xaml
@@ -32,11 +32,6 @@ namespace PatientAdmissionApp
             {
                 lblPatientNameLabel.Content = $"  Notified From Registrationpage - {e.Name}";
             }
-        }
-      
-        private void PatientsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

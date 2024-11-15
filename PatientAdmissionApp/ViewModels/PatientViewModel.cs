@@ -2,12 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using PatientAdmissionApp.UserControls;
 
-namespace PatientAdmissionApp
+namespace PatientAdmissionApp.Views
 {
     public class PatientViewModel : BaseViewModel, IPatient
     {
         private MainWindow mainWindow;
+        public PatientRegistrationControl patientRegistrationControl;
 
         public event EventHandler AppointmentUpdated;
         public event EventHandler PatientRegistered;
@@ -43,6 +45,7 @@ namespace PatientAdmissionApp
         public PatientViewModel()
         {
             NewPatient = new PatientModel();
+            patientRegistrationControl = new PatientRegistrationControl();
             RegisterPatientCommand = new RelayCommand(RegisterPatient);
             SendUpdateCommand = new RelayCommand(SendUpdate);
             PatientRegistered += OnPatientRegistered;
@@ -54,6 +57,7 @@ namespace PatientAdmissionApp
         {
             PatientRegistered?.Invoke(this, EventArgs.Empty);
         }
+        
 
         private void OnPatientRegistered(object sender, EventArgs e)
         {
